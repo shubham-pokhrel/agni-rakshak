@@ -17,21 +17,18 @@ void loop() {
       s2.write(10);
       delay(500);
 
-      //delay(5000);
       
       s1.write(10);
       delay(500);
       s2.write(100);
       delay(500);
 
-      //delay(5000);
 
       s1.write(100);
       delay(500);
       s2.write(100);
       delay(500);
 
-      //delay(5000);
 
       s1.write(100);
       delay(500);
