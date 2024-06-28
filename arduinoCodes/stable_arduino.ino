@@ -11,12 +11,12 @@ bool move_motors = false;
 
 
 
-//--------------
+
 #define enA 6
 #define in1 5
 #define in2 4
 
-//--------------------
+
 
 
 
@@ -86,8 +86,7 @@ void loop() {
      {
       
          myString = Serial.readString();
-                // Serial.println(myString);
-                // delay(2000);
+                
               // Variables to keep track of which number we are parsing
               bool parsingA = false;
               bool parsingB = false;
@@ -123,7 +122,7 @@ void loop() {
       {
           servo_x_movement();
           servo_y_movement();
-          //spray();
+          spray();
 
       }
   
