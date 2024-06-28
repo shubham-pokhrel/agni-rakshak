@@ -120,13 +120,12 @@ PATH_TO_LABELS = os.path.join(CWD_PATH,MODEL_NAME,LABELMAP_NAME)
 with open(PATH_TO_LABELS, 'r') as f:
     labels = [line.strip() for line in f.readlines()]
 
-# Have to do a weird fix for label map if using the COCO "starter model" from
-# https://www.tensorflow.org/lite/models/object_detection/overview
+
 # First label is '???', which has to be removed.
 if labels[0] == '???':
     del(labels[0])
 
-# Load the Tensorflow Lite model.
+# Load the Tensorflow model.
 # If using Edge TPU, use special load_delegate argument
 if use_TPU:
     interpreter = Interpreter(model_path=PATH_TO_CKPT,num_threads=multiprocessing.cpu_count(),
@@ -166,9 +165,7 @@ videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
 
 servo_x,servo_y=640,360
 
-# def mapFunc(x,inmin,inmax,outmax,outmin):
-    
-#     return (((x-inmin)*(outmax-outmin)/(inmax-inmin))+outmin)
+
 
 def map_value(fire_pixel, min_pixel, max_pixel, min_target=105, max_target=23):
     mapped_value = np.interp(fire_pixel, (min_pixel, max_pixel), (min_target, max_target))
@@ -253,13 +250,13 @@ while True:
                 
                 time.sleep(0.1)
                 message= "X"+str(int(duty_x))+"Y"+str(int(duty_y))
-               #message= "X1"+"Y"+str(int(duty_y))
+               
                 serialInst.write(message.encode('utf-8'))
 
                 time.sleep(0.1)
                 print("done--------------------")
                 flag=1
-                #serialInst.close()
+               
 
                 print(message)
 
@@ -281,28 +278,21 @@ while True:
     if flag == 1:
         time.sleep(5)
         print(flag)
-        # serialInst.open()
-        # reply = serialInst.readline()
-        # #time.sleep(0.1)
-        # serialInst.close()
-        # print(reply)
         flag = 0
 
 
 
-    #print('----objects',objects)
+
     # Draw framerate in corner of frame
     cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
-    #cv2.line(frame,limit_box[0],limit_box[1],(0,0,255),3)
-    #cv2.line(frame,limit_box[2],limit_box[3],(0,0,255),3)
-    # All the results have been drawn on the frame, so it's time to display it.
+ 
 
 
 
 
 
 
-    #flipped_frame = cv2.flip(frame, 1)
+
 
     # Display the processed frame
     cv2.imshow('Object detector', frame)
@@ -311,7 +301,7 @@ while True:
     t2 = cv2.getTickCount()
     time1 = (t2 - t1) / freq
     frame_rate_calc = 1 / time1
-    #print('FPS: {:.2f}'.format(frame_rate_calc))
+ 
 
     # Check for user input to quit
     if cv2.waitKey(1) == ord('q'):
